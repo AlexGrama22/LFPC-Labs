@@ -1,38 +1,25 @@
-import random
 class FiniteAutomaton:
-    def __init__(self, start_state, transitions):
-        self.start_state = start_state
-        self.transitions = transitions
+    def __init__(self, automaton):
+        self.states = automaton['states']
+        self.alphabet = automaton['alphabet']
+        self.transitions = automaton['transitions']
+        self.start_state = automaton['start_state']
+        self.final_states = automaton['final_states']
 
-    def accepts(self, input_string):
+    def check_string(self, string):
         current_state = self.start_state
 
-        # Iterate over each symbol in the input string
-        for symbol in input_string:
-            # If the symbol is not a valid transition, reject the string
-            if symbol not in self.transitions[current_state]:
+        for symbol in string:
+            try:
+                current_state = self.transitions[current_state][symbol]
+            except KeyError:
                 return False
-            # Otherwise, transition to the next state
-            current_state = self.transitions[current_state][symbol]
 
-        # If the final state has an empty string transition to the start state, accept the string
-        return '' in self.transitions[current_state]
+        return current_state in self.final_states
 
-# Define the finite automaton from the grammar
-start_state = 0
-transitions = {
-    0: {'d': 1},
-    1: {'a': 2, 'd': 1},
-    2: {'b': 3, 'd': 1},
-    3: {'c': 4},
-    4: {'a': 0, 'd': 1, '': 0},
-}
-automaton = FiniteAutomaton(start_state, transitions)
-
-# Test the automaton with some example input strings
-input_strings = ['dad', 'dbc', 'dabcac', 'a', 'dd']
-for input_string in input_strings:
-    if automaton.accepts(input_string):
-        print(f"{input_string} is a valid string for the grammar")
-    else:
-        print(f"{input_string} is not a valid string for the grammar")
+    def check_strings(self, strings):
+        for string in strings:
+            if self.check_string(string):
+                print(f'String "{string}" is accepted by the automaton.')
+            else:
+                print(f'String "{string}" is rejected by the automaton.')
