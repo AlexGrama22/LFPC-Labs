@@ -2,7 +2,7 @@ class FiniteAutomaton:
     def __init__(self, automaton):
         self.states = automaton['states']
         self.alphabet = automaton['alphabet']
-        self.transitions = automaton['transitions']
+        self.transition = automaton['transition']
         self.start_state = automaton['start_state']
         self.final_states = automaton['final_states']
 
@@ -11,7 +11,7 @@ class FiniteAutomaton:
 
         for symbol in string:
             try:
-                current_state = self.transitions[current_state][symbol]
+                current_state = self.transition[current_state][symbol]
             except KeyError:
                 return False
 

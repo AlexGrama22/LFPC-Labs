@@ -16,22 +16,22 @@ class Grammars:
 
     def to_finite_automaton(self):
         start_state = 0
-        automatons = {start_state: {}}
+        auto = {start_state: {}}
         state_count = 1
 
         for symbol in self.productions:
             for production in self.productions[symbol]:
                 current_state = start_state
                 for s in production:
-                    if s not in automatons[current_state]:
+                    if s not in auto[current_state]:
 
-                        automatons[current_state][s] = state_count
-                        automatons[state_count] = {}
+                        auto[current_state][s] = state_count
+                        auto[state_count] = {}
                         state_count += 1
-                    current_state = automatons[current_state][s]
-                if current_state not in automatons:
-                    automatons[current_state] = {}
-                automatons[current_state][''] = start_state
+                    current_state = auto[current_state][s]
+                if current_state not in auto:
+                    auto[current_state] = {}
+                auto[current_state][''] = start_state
 
 
-        return automatons
+        return auto
