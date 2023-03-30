@@ -3,6 +3,7 @@ import networkx as nx
 from Automaton import Automaton
 from FiniteAutomaton import FiniteAutomaton
 from Grammar import Grammars
+from lexer import MathLexer
 class Main:
     print(
         '-------------------------------------------------------------------LAB1-------------------------------------------------------------------------')
@@ -86,6 +87,10 @@ print(f"Regular grammar productions: {grammar}")
 print(main.grammar.chomsky_classification())
 automation.render()
 
+print('-------------------------------------------------------------------LAB3-------------------------------------------------------------------------')
 
+lexer = MathLexer('2 * (3 + 4) - 5 / 6')
+tokens = lexer.tokens
+print(tokens)
 
 
