@@ -1,13 +1,16 @@
 import matplotlib.pyplot as plt
 import networkx as nx
+import unittest
 from Automaton import Automaton
 from FiniteAutomaton import FiniteAutomaton
 from Grammar import Grammars
 from lexer import MathLexer
+from ChomskyConverter import CNFConverter
+from UnitTester import UnitTester
+
 class Main:
     print(
         '-------------------------------------------------------------------LAB1-------------------------------------------------------------------------')
-
 
     def __init__(self):
         self.productions = {
@@ -69,9 +72,9 @@ automation.transitions = {('q0', 'a'): ['q0', 'q1'],
 automation.start_state = 'q0'
 automation.accept_states = ['q3']
 print('')
-print('')
-print('')
+
 print('-------------------------------------------------------------------LAB2-------------------------------------------------------------------------')
+print('')
 is_deterministic = automation.is_deterministic()
 print(f"Is automaton deterministic? {is_deterministic}")
 
@@ -86,10 +89,41 @@ grammar = automation.to_grammar()
 print(f"Regular grammar productions: {grammar}")
 print(main.grammar.chomsky_classification())
 automation.render()
-
+print('')
 print('-------------------------------------------------------------------LAB3-------------------------------------------------------------------------')
-
+print('')
 lexer = MathLexer('2 * (21/2) + (3 + 4) - 5 / 6')
 tokens = lexer.tokens
 print(tokens)
+print('')
+print('-------------------------------------------------------------------LAB4-------------------------------------------------------------------------')
+print('')
+VN = {'S', 'A', 'B', 'C', 'D'}
+VI = {'a', 'b'}
+P = [
+    ('S', ('A', 'C')),
+    ('S', ('b', 'A')),
+    ('S', ('B',)),
+    ('A', ()),
+    ('A', ('a', 'S')),
+    ('A', ('A', 'S','a','b')),
+    ('B', ('b', 'S')),
+    ('C', ('a', 'b', 'C')),
+    ('D', ('A', 'B'))
+]
+S = 'S'
+grammar = (VN, VI, P, S)
 
+# Convert the grammar to Chomsky normal form
+cnf_converter = CNFConverter(grammar)
+cnf_grammar = cnf_converter.convert_to_cnf()
+
+# Print the resulting grammar
+print('Original grammar:')
+print(grammar)
+print('Grammar in Chomsky normal form:')
+print(cnf_grammar)
+
+print("All Tests Passed")
+unittest.main()
+print('')
