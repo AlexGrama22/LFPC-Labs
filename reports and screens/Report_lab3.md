@@ -7,7 +7,11 @@
 
 
 ## Theory
-    The term lexer comes from lexical analysis which, in turn, represents the process of extracting lexical tokens from a string of characters. There are several alternative names for the mechanism called lexer, for example tokenizer or scanner. The lexical analysis is one of the first stages used in a compiler/interpreter when dealing with programming, markup or other types of languages. The tokens are identified based on some rules of the language and the products that the lexer gives are called lexemes. So basically the lexer is a stream of lexemes. Now in case it is not clear what's the difference between lexemes and tokens, there is a big one. The lexeme is just the byproduct of splitting based on delimiters, for example spaces, but the tokens give names or categories to each lexeme. So the tokens don't retain necessarily the actual value of the lexeme, but rather the type of it and maybe some metadata.
+    The theory discussed in the provided excerpt revolves around the concept of a lexer, which is derived from lexical analysis—a process that involves extracting lexical tokens from a sequence of characters. Lexical analysis serves as an initial stage in the compilation or interpretation of programming, markup, or other types of languages. While the lexer is often referred to as a tokenizer or scanner, its fundamental purpose remains the same.
+
+During lexical analysis, tokens are identified based on predefined rules specific to the given language. The output produced by the lexer is known as lexemes, which essentially form a stream of these identified lexical units. It is important to note the distinction between lexemes and tokens. A lexeme is the result of splitting the input based on delimiters, such as spaces or other designated characters. On the other hand, tokens provide names or categories to each lexeme. Tokens do not necessarily retain the actual value of the lexeme but rather capture its type and potentially some associated metadata.
+
+In summary, the lexer plays a crucial role in the processing of programming languages and other forms of textual data. It operates by analyzing input strings, segmenting them into lexemes based on specified rules, and assigning tokens to these lexemes to categorize and represent their type. By understanding the difference between lexemes and tokens, developers and language designers can effectively handle and manipulate textual information in a structured and meaningful manner.
 
 ## Objectives:
 - Understand what lexical analysis [1] is.
@@ -19,7 +23,13 @@
 
 ## Implementation description
 ### Lexer class
-The Lexer class in Python is responsible for parsing an input string and identifying the various types of tokens present in the string. To do this, the class defines a set of regular expression patterns that match different token types such as operators, identifiers, keywords, numbers, strings, and more. When the class's tokenize method is called, it iterates over these patterns, attempting to match them against the input string. If a match is found, the corresponding token and its value are added to a list of tokens. In case an invalid token is encountered, the class raises a ValueError exception.
+In the realm of Python programming, the Lexer class plays a crucial role in the process of parsing an input string and identifying the distinct types of tokens contained within it. This class is designed to handle the intricate task of tokenization by leveraging a collection of regular expression patterns specifically created to match various token types. These patterns encompass a wide range of elements, including operators, identifiers, keywords, numbers, strings, and more.
+
+When the tokenize method of the Lexer class is invoked, it initiates a systematic iteration over these predefined patterns. For each iteration, the Lexer attempts to match the patterns against the input string, seeking instances where they align with the structure of the tokens. Whenever a successful match is detected, the Lexer proceeds to record the corresponding token and its associated value, incorporating them into a list of tokens.
+
+However, it is essential to account for scenarios in which the input string contains invalid tokens that do not conform to the defined patterns. In such cases, the Lexer class is designed to raise a ValueError exception, alerting the user to the presence of an unrecognized or malformed token within the input.
+
+By employing the Lexer class in Python, developers can effectively break down an input string into its constituent tokens, allowing for subsequent analysis, processing, or interpretation. This tokenization process serves as a fundamental step in various language-related tasks, such as developing compilers, interpreters, syntax highlighting, code analysis tools, and more.
 ```python
 import re
 
@@ -54,9 +64,15 @@ class MathLexer:
 
 ```
 ### Tokenize method
-The Lexer class's tokenize method accepts a string input and returns a token list. It accomplishes this by looping through the list of token patterns in the Lexer instance's self.token_patterns attribute. The method utilizes regular expressions to match each pattern to the start of the input string. If a match is detected, the method combines the token type and matched string to create a token, which it then adds to the token list stored in the Lexer instance's self.tokens attribute.
+The tokenize method of the Lexer class in Python provides a powerful mechanism for breaking down an input string into a structured list of tokens. By leveraging regular expressions and a collection of token patterns, this method enables the identification and extraction of meaningful units from the input.
 
-If a match is found, the method modifies the input string by removing the matched section. This process is repeated until the entire input string has been processed. If a pattern is not matched to any portion of the input string, the method will throw a ValueError containing an error message indicating an invalid token was encountered.
+During the execution of the tokenize method, the Lexer instance accesses its self.token_patterns attribute, which contains the list of predefined token patterns. It iterates through this list, attempting to match each pattern to the beginning of the input string. If a match is successfully detected, the method combines the token type associated with the pattern and the matched substring to create a token representation.
+
+To ensure efficient processing, the tokenize method modifies the input string by removing the portion that has been matched. This iterative process continues until the entire input string has been examined and all possible tokens have been extracted. The resulting tokens are then added to the token list stored in the self.tokens attribute of the Lexer instance.
+
+However, if a pattern fails to match any portion of the input string, indicating the presence of an invalid or unexpected token, the tokenize method raises a ValueError. This exception serves as an indicator that the Lexer encountered a token that does not conform to any defined pattern, thereby signaling a potential issue in the input or the lexer's configuration.
+
+By employing the Lexer class and its tokenize method, developers gain a reliable and flexible tool for performing lexical analysis in Python. This functionality proves invaluable in a wide range of applications, including the development of programming language tools, syntax highlighting editors, code analyzers, and many other language processing tasks.
 
 Lastly, the method returns the token list that was generated.
 ```python
@@ -76,7 +92,8 @@ Lastly, the method returns the token list that was generated.
         return tokens
 ```
 ### Main
-The Main class imports the Lexer class from the lexer module, and then creates an instance of the Lexer class by invoking its constructor without any arguments. Subsequently, the tokenize method of the Lexer instance is invoked with the input string "2 * (21/2) + (3 + 4) - 5 / 6". The method tokenizes the input string by separating it into a list of tokens and then returns the list. Finally, the resulting list of tokens is printed to the console using the print function. The output confirms that the input string has been correctly tokenized into its component tokens, including numbers, operators, and parentheses. Moreover, the message "input valid" is printed to the console, indicating that the input string was tokenized successfully without encountering any errors.```python
+The Main class imports the Lexer class from the lexer module, and then creates an instance of the Lexer class by invoking its constructor without any arguments. Subsequently, the tokenize method of the Lexer instance is invoked with the input string "2 * (21/2) + (3 + 4) - 5 / 6". The method tokenizes the input string by separating it into a list of tokens and then returns the list. Finally, the resulting list of tokens is printed to the console using the print function. The output confirms that the input string has been correctly tokenized into its component tokens, including numbers, operators, and parentheses. Moreover, the message "input valid" is printed to the console, indicating that the input string was tokenized successfully without encountering any errors.
+
 ```python
 from lexer import Lexer
 class Main:
