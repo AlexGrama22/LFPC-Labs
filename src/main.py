@@ -1,12 +1,16 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import unittest
-from Automaton import Automaton
-from FiniteAutomaton import FiniteAutomaton
-from Grammar import Grammars
-from lexer import MathLexer
-from ChomskyConverter import CNFConverter
-from UnitTester import UnitTester
+from Automaton.Automaton import Automaton
+from Automaton.FiniteAutomaton import FiniteAutomaton
+from grammar.Grammar import Grammars
+from grammar.lexer import MathLexer
+from Chomsky.ChomskyConverter import CNFConverter
+from Parser.parser import Parser
+from Parser.Interpreter import Interpreter
+from Chomsky.UnitTester import UnitTester
+
+
 
 class Main:
     print(
@@ -93,7 +97,7 @@ print('')
 print('-------------------------------------------------------------------LAB3-------------------------------------------------------------------------')
 print('')
 lexer = MathLexer('2 * (21/2) + (3 + 4) - 5 / 6')
-tokens = lexer.tokens
+tokens = lexer.tokenize()
 print(tokens)
 print('')
 print('-------------------------------------------------------------------LAB4-------------------------------------------------------------------------')
@@ -126,6 +130,15 @@ print(grammar)
 print('Grammar in Chomsky normal form:')
 print(cnf_grammar)
 
-print("All Tests Passed")
-unittest.main()
+# print("All Tests Passed")
+# unittest.main()
 print('')
+print('-------------------------------------------------------------------LAB5-------------------------------------------------------------------------')
+
+lexer = MathLexer("var m = 21; var x = 3; var z = m + x;")
+parser = Parser(lexer)
+ast = parser.process()
+print(ast)
+interpreter = Interpreter()
+interpreter.interpret(ast)
+print(interpreter.variables)

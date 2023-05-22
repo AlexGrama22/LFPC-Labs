@@ -1,5 +1,6 @@
 import random
 
+
 class Grammars:
     def __init__(self, productions, start_symbol):
         self.productions = productions
@@ -13,7 +14,6 @@ class Grammars:
             return symbol
         production = random.choice(self.productions[symbol])
         return ''.join(self._generate_string(s) for s in production)
-
 
     def to_finite_automaton(self):
         start_state = 0
@@ -56,4 +56,3 @@ class Grammars:
                 return "Type 3: Regular Grammar"
         else:
             return "Type 2: Context-Free Grammar"
-
